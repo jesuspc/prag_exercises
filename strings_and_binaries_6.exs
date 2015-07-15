@@ -9,20 +9,20 @@ defmodule Capitalize do
   defp _capitalize_sentences(<<>>, converted_string) do
     converted_string
   end
-  defp _capitalize_sentences(<< 46, 32, head, tail :: binary >>, converted_string) do
-    _capitalize_sentences(tail, converted_string <> << 46, 32 >> <> << _upcase(head) >>)
+  defp _capitalize_sentences(<< ?., ?\ , head, tail :: binary >>, converted_string) do
+    _capitalize_sentences(tail, converted_string <> << ?., ?\  >> <> << _upcase(head) >>)
   end
   defp _capitalize_sentences(<< head, tail :: binary >>, converted_string) do
     _capitalize_sentences(tail, converted_string <> << _downcase(head) >>)
   end
 
-  defp _upcase(ascii_char) when ascii_char >= 97 and ascii_char <= 122 do
+  defp _upcase(ascii_char) when ascii_char >= ?a and ascii_char <= ?z do
     ascii_char - 32
   end
   defp _upcase(ascii_char) do
     ascii_char
   end
-  defp _downcase(ascii_char) when ascii_char >= 65 and ascii_char < 97 do
+  defp _downcase(ascii_char) when ascii_char >= ?A and ascii_char < ?Z do
     ascii_char + 32
   end
   defp _downcase(ascii_char) do
